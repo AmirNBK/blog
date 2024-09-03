@@ -1,4 +1,4 @@
-export const validate = (values: { username: string; email: string; password: string; confPassword: string; }) => {
+export const validate = (values: { username?: string; email: string; password: string; confPassword?: string; }) => {
     const errors: { username?: string; email?: string; password?: string; confPassword?: string } = {};
 
     if (!values.username) {

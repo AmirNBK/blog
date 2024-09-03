@@ -1,28 +1,27 @@
 "use client";
 import React, { useState } from 'react';
-import user from '@/assets/icons/UserGray.svg';
 import email from '@/assets/icons/EmailGray.svg';
 import lock from '@/assets/icons/LockKey.svg';
 import { useFormik } from 'formik';
 import { validate } from '@/validators/validation';
 import AuthInput from '../AuthInput/AuthInput';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
-import styles from './SignUp.module.css';
+import styles from './Login.module.css';
 import { useAppContext } from '@/context/AppContext';
 
-const SignUp = () => {
+
+const Login = () => {
     const [initialSubmit, setInitialSubmit] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const { toggleSignUpLogin } = useAppContext();
 
+
     const formik = useFormik({
         initialValues: {
-            username: '',
             email: '',
             password: '',
-            confPassword: ''
         },
         validate,
         validateOnBlur: false,
@@ -33,13 +32,12 @@ const SignUp = () => {
             setSuccess('');
 
             try {
-                const response = await fetch('http://localhost:3000/api/auth/signup', {
+                const response = await fetch('http://localhost:3000/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        name: values.username,
                         email: values.email,
                         password: values.password,
                     }),
@@ -48,7 +46,7 @@ const SignUp = () => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    setSuccess('User created successfully!');
+                    setSuccess('You logged in successfully');
 
                     if (data.token) {
                         localStorage.setItem('token', data.token);
@@ -60,7 +58,7 @@ const SignUp = () => {
                         window.location.href = '/';
                     }, 1000);
                 } else {
-                    setError(data.error || 'Failed to create user.');
+                    setError(data.error || 'Failed to login.');
                 }
             } catch (err) {
                 setError('An error occurred. Please try again later.');
@@ -73,11 +71,11 @@ const SignUp = () => {
     return (
         <div className={styles.signUp}>
             <h2 className={styles.title}>
-                Create account
+                Login
             </h2>
 
             <p className={styles.subtitle}>
-                Welcome! Enter your details and start creating.
+                Welcome back! Enter your details and start creating.
             </p>
 
             {error && <p className="text-red-400">{error}</p>}
@@ -85,13 +83,6 @@ const SignUp = () => {
 
             <form onSubmit={formik.handleSubmit}>
                 <div className={styles.formGroup}>
-                    <AuthInput placeholder='Username' icon={user} type='text'
-                        name='username'
-                        onChange={formik.handleChange}
-                        value={formik.values.username}
-                        borderColor={formik.errors.username ? 'red-400' : ''}
-                    />
-                    {formik.errors.username ? <p className={styles.errorMessage}>{formik.errors.username}</p> : null}
 
                     <AuthInput placeholder='Email Address' icon={email} type='email'
                         name='email'
@@ -109,20 +100,12 @@ const SignUp = () => {
                     />
                     {formik.errors.password ? <p className={styles.errorMessage}>{formik.errors.password}</p> : null}
 
-                    <AuthInput placeholder='Confirm Password' icon={lock} type='password'
-                        name='confPassword'
-                        onChange={formik.handleChange}
-                        value={formik.values.confPassword}
-                        borderColor={formik.errors.confPassword ? 'red-400' : ''}
-                    />
-                    {formik.errors.confPassword ? <p className={`${styles.errorMessage} ${styles.errorMessageConfPassword}`}>{formik.errors.confPassword}</p> : null}
                 </div>
-
                 <p className="text-base cursor-pointer text-blue-500 hover:underline mt-3" onClick={toggleSignUpLogin}>
-                    Already have an account? Click here
+                    Don't have an account? Click here
                 </p>
                 <div className={styles.buttonWrapper}>
-                    <PrimaryButton text={loading ? 'Creating...' : 'Create account'} hasIcon={false} width='8/12'
+                    <PrimaryButton text={loading ? 'Logging in...' : 'Login'} hasIcon={false} width='8/12'
                         onClick={() => {
                             setInitialSubmit(true);
                         }}
@@ -133,4 +116,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default Login;

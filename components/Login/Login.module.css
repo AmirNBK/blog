@@ -1,0 +1,42 @@
+.signUp {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 41.6667%;
+    margin-top: 64px;
+    text-align: center;
+}
+
+.title {
+    font-size: 55px;
+}
+
+.subtitle {
+    font-size: 20px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.errorMessage {
+    color: #f87171;
+    margin-top: -8px;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+.errorMessageConfPassword {
+    margin-top: -8px;
+}
+
+.buttonWrapper {
+    margin-top: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
