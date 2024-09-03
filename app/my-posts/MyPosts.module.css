@@ -1,10 +1,50 @@
 .main {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 48px; 
-    background-color: #181A2A;
-  }
-  
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 48px;
+  background-color: #181A2A;
+}
+
+.latestPostsContainer {
+  width: 75%;
+  margin-top: 0px;
+}
+
+.heading {
+  color: white;
+  text-align: left;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.posts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.publishButton {
+  background-color: #7F56D9;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin : 60px 0;
+}
+
+.publishButton:hover {
+  background-color: #6A4EAB;
+  transform: translateY(-2px);
+}
+
+.publishButton:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
