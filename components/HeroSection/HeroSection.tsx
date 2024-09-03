@@ -5,15 +5,19 @@ import Image from 'next/image';
 import image2 from '@/assets/images/Image2.png';
 import styles from './HeroSection.module.css';
 
-const HeroSection = () => {
+const HeroSection = ({ post }: { post: any }) => {
     const articleData = {
         category: "Technology",
-        title: "The Impact of Technology on the Workplace: How Technology is Changing",
+        title: post.title,
         author: {
-            name: "Jason Francisco",
+            name: post.author.name,
             avatar: image1
         },
-        publishDate: "August 20, 2022"
+        publishDate: new Date(post.publishDate).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        })
     };
 
     return (

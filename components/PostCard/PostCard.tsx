@@ -25,6 +25,14 @@ const PostCard: React.FC<PostCardProps> = ({
     editable,
     deletable
 }) => {
+
+    const MAX_DESCRIPTION_LENGTH = 35;
+    const truncatedDescription =
+        description.length > MAX_DESCRIPTION_LENGTH
+            ? `${description.slice(0, MAX_DESCRIPTION_LENGTH)}...`
+            : description;
+
+
     return (
         <article className={styles.postCard}>
             <Image src={imageUrl} alt="" className={styles.postImage} />
@@ -32,9 +40,10 @@ const PostCard: React.FC<PostCardProps> = ({
                 <header className={styles.heading}>
                     <span className={styles.badge}>{category}</span>
                     <h2 className={styles.title}>{title}</h2>
-                    <p className={styles.description}>
-                        {description}
-                    </p>
+                    <div
+                        className={styles.description}
+                        dangerouslySetInnerHTML={{ __html: truncatedDescription }}
+                    />
                 </header>
                 <footer className={styles.shortInfo}>
                     <div className={styles.author}>
