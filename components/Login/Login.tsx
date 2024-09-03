@@ -1,7 +1,5 @@
 "use client";
 import React, { useState } from 'react';
-import email from '@/assets/icons/EmailGray.svg';
-import lock from '@/assets/icons/LockKey.svg';
 import { useFormik } from 'formik';
 import { validate } from '@/validators/validation';
 import AuthInput from '../AuthInput/AuthInput';
@@ -23,7 +21,7 @@ const Login = () => {
             email: '',
             password: '',
         },
-        validate,
+        validate: (values) => validate(values, 'login'),
         validateOnBlur: false,
         validateOnChange: initialSubmit ? true : false,
         onSubmit: async (values, { resetForm }) => {
@@ -69,7 +67,7 @@ const Login = () => {
     });
 
     return (
-        <div className={styles.signUp}>
+        <div className={styles.login}>
             <h2 className={styles.title}>
                 Login
             </h2>
@@ -84,7 +82,7 @@ const Login = () => {
             <form onSubmit={formik.handleSubmit}>
                 <div className={styles.formGroup}>
 
-                    <AuthInput placeholder='Email Address' icon={email} type='email'
+                    <AuthInput placeholder='Email Address' type='email'
                         name='email'
                         onChange={formik.handleChange}
                         value={formik.values.email}
@@ -92,7 +90,7 @@ const Login = () => {
                     />
                     {formik.errors.email ? <p className={styles.errorMessage}>{formik.errors.email}</p> : null}
 
-                    <AuthInput placeholder='Password' icon={lock} type='password'
+                    <AuthInput placeholder='Password' type='password'
                         name='password'
                         onChange={formik.handleChange}
                         value={formik.values.password}

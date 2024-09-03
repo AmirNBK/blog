@@ -2,7 +2,7 @@ import Image, { StaticImageData } from 'next/image';
 import React from 'react';
 
 const AuthInput = ({ icon, placeholder, type, onChange, value, name, borderColor }: {
-    icon: StaticImageData, placeholder: string, type: string, onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    icon?: StaticImageData, placeholder: string, type: string, onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     value: string; name: string; borderColor?: string
 }) => {
     return (

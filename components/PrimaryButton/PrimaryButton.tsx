@@ -17,6 +17,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ text, icon, hasIcon, widt
     const buttonContent = (
         <button
             onClick={onClick}
+            type='submit'
             className={`bg-[#7F56D9] text-center text-white flex flex-row-reverse gap-3 px-8 py-4 rounded-3xl justify-center items-center w-${width}`}>
             <p>{text}</p>
             {(hasIcon && icon) && <Image src={icon} alt='icon' />}

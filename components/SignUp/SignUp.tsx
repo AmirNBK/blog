@@ -24,7 +24,7 @@ const SignUp = () => {
             password: '',
             confPassword: ''
         },
-        validate,
+        validate: (values) => validate(values, 'signup'),
         validateOnBlur: false,
         validateOnChange: initialSubmit ? true : false,
         onSubmit: async (values, { resetForm }) => {
