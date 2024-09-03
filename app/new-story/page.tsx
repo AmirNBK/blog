@@ -22,6 +22,39 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function NewStory() {
+
+
+    
+    const handlePostSubmit = async (values: any) => {
+        try {
+            const token = localStorage.getItem('token');
+    
+            const response = await fetch('http://localhost:3000/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    title: values.title,
+                    content: values.content,
+                    publishDate: values.dateTime,
+                }),
+            });
+    
+            if (response.ok) {
+                alert('Your post submitted');
+            } else {
+                const data = await response.json();
+                console.error('Error:', data.message || 'Failed to create post');
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+    };
+    
+    
+
     return (
         <main className={styles.main}>
             <NavBar />
@@ -29,9 +62,7 @@ export default function NewStory() {
             <Formik
                 initialValues={{ title: '', content: 'Start creating your new post!', dateTime: '' }}
                 validationSchema={validationSchema}
-                onSubmit={(values) => {
-                    console.log('Form values:', values);
-                }}
+                onSubmit={handlePostSubmit}
             >
                 {({ setFieldValue }) => (
                     <Form className={styles.form}>

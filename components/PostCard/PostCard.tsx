@@ -10,7 +10,8 @@ interface PostCardProps {
     authorImageUrl: string | StaticImageData;
     authorName: string;
     date: string;
-    editable?: boolean
+    editable?: boolean,
+    deletable?: boolean
 }
 
 const PostCard: React.FC<PostCardProps> = ({
@@ -21,7 +22,8 @@ const PostCard: React.FC<PostCardProps> = ({
     authorImageUrl,
     authorName,
     date,
-    editable
+    editable,
+    deletable
 }) => {
     return (
         <article className={styles.postCard}>
@@ -42,9 +44,16 @@ const PostCard: React.FC<PostCardProps> = ({
                     <time className={styles.date}>{date}</time>
                 </footer>
 
-                {editable && <p className=' underline text-white mt-6'>
-                    Edit
-                </p>}
+                <div className='flex flex-row justify-between'>
+                    {editable && <p className=' underline text-white mt-6'>
+                        Edit
+                    </p>}
+
+                    {deletable && <p className=' underline mt-6 text-red-700'>
+                        Delete
+                    </p>}
+
+                </div>
             </div>
         </article>
     );

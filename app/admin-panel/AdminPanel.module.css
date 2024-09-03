@@ -26,3 +26,27 @@
     gap: 24px;
   }
   
+.sortOptions {
+  margin: 35px 0px;
+  display: flex;
+  align-items: center;
+}
+
+.sortOptions label {
+  margin-right: 10px;
+}
+
+.sortOptions select {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.sortLabel {
+  color: #fff;
+}
+
+.title {
+  font-size: 55px;
+  color: #fff;
+  text-align: center;
+}
