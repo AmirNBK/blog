@@ -1,0 +1,101 @@
+.commentCard {
+    display: flex;
+    max-width: 662px;
+    flex-direction: column;
+    font-family: Manrope, sans-serif;
+}
+
+.commentContent {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.commentHeader {
+    display: flex;
+    width: 100%;
+    align-items: start;
+    gap: 20px;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+
+.avatarImage {
+    object-fit: cover;
+    aspect-ratio: 1;
+    object-position: center;
+    width: 48px;
+    border-radius: 100px;
+}
+
+.commentBody {
+    border-radius: 10px;
+    background-color: rgba(239, 242, 252, 1);
+    display: flex;
+    min-width: 240px;
+    flex-direction: column;
+    justify-content: start;
+    flex: 1;
+    flex-basis: 0%;
+    padding: 10px 20px;
+}
+
+.commentInfo {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.authorInfo {
+    display: flex;
+    width: 100%;
+    align-items: start;
+    gap: 20px;
+    line-height: 1.6;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+.authorName {
+    color: var(--Gray-900, #0b0f19);
+    font-feature-settings: "liga" off, "clig" off;
+    font-size: 16px;
+    font-weight: 700;
+    flex: 1;
+    flex-basis: 0%;
+}
+
+
+.commentDate {
+    font-feature-settings: "liga" off, "clig" off;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--Gray-600, #9397ad);
+    font-weight: 400;
+    text-align: right;
+}
+
+.commentText {
+    color: var(--Gray-900, #0b0f19);
+    font-feature-settings: "liga" off, "clig" off;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    margin-top: 20px;
+}
+
+.commentMeta {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--Gray-600, #9397ad);
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: right;
+    line-height: 1.6;
+    justify-content: end;
+    flex-wrap: wrap;
+    padding: 5px 30px;
+}

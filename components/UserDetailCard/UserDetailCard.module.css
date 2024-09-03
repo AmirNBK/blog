@@ -1,0 +1,40 @@
+.card {
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #242535;
+    width: 75%;
+    padding: 48px;
+    color: white;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatar {
+    border-radius: 50%;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 4px;
+}
+
+.email {
+    font-size: 0.875rem;
+    color: #BABABF;
+}
+
+.description {
+    margin-top: 24px;
+    width: 66.67%;
+    color: #BABABF;
+}

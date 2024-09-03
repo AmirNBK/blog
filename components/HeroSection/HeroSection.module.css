@@ -1,0 +1,15 @@
+.heroSectionContainer {
+    margin: 48px 0;
+    width: 75%;
+    position: relative;
+}
+
+.heroSectionImage {
+    border-radius: 12px;
+}
+
+.articleCardContainer {
+    position: absolute;
+    bottom: -48px;
+    left: 64px;
+}

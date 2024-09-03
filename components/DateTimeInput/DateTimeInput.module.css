@@ -1,0 +1,32 @@
+.datetimeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.datetimeLabel {
+    font-size: 17px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.datetimeInput {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.datetimeInput:focus {
+    border-color: #45a049;
+}

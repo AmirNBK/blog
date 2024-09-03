@@ -1,0 +1,131 @@
+"use client";
+import React, { useState } from 'react';
+import user from '@/assets/icons/UserGray.svg';
+import email from '@/assets/icons/EmailGray.svg';
+import lock from '@/assets/icons/LockKey.svg';
+import { useFormik } from 'formik';
+import { validate } from '@/validators/validation';
+import AuthInput from '../AuthInput/AuthInput';
+import PrimaryButton from '../PrimaryButton/PrimaryButton';
+import styles from './SignUp.module.css';
+
+const SignUp = () => {
+    const [initialSubmit, setInitialSubmit] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            email: '',
+            password: '',
+            confPassword: ''
+        },
+        validate,
+        validateOnBlur: false,
+        validateOnChange: initialSubmit ? true : false,
+        onSubmit: async (values, { resetForm }) => {
+            setLoading(true);
+            setError('');
+            setSuccess('');
+
+            try {
+                const response = await fetch('http://localhost:3000/api/auth/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: values.username,
+                        email: values.email,
+                        password: values.password,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    setSuccess('User created successfully!');
+
+                    if (data.token) {
+                        localStorage.setItem('token', data.token);
+                    }
+
+                    resetForm();
+
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                } else {
+                    setError(data.error || 'Failed to create user.');
+                }
+            } catch (err) {
+                setError('An error occurred. Please try again later.');
+            } finally {
+                setLoading(false);
+            }
+        },
+    });
+
+    return (
+        <div className={styles.signUp}>
+            <h2 className={styles.title}>
+                Create account
+            </h2>
+
+            <p className={styles.subtitle}>
+                Welcome! Enter your details and start creating.
+            </p>
+
+            {error && <p className="text-red-400">{error}</p>}
+            {success && <p className="text-green-400">{success}</p>}
+
+            <form onSubmit={formik.handleSubmit}>
+                <div className={styles.formGroup}>
+                    <AuthInput placeholder='Username' icon={user} type='text'
+                        name='username'
+                        onChange={formik.handleChange}
+                        value={formik.values.username}
+                        borderColor={formik.errors.username ? 'red-400' : ''}
+                    />
+                    {formik.errors.username ? <p className={styles.errorMessage}>{formik.errors.username}</p> : null}
+
+                    <AuthInput placeholder='Email Address' icon={email} type='email'
+                        name='email'
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
+                        borderColor={formik.errors.email ? 'red-400' : ''}
+                    />
+                    {formik.errors.email ? <p className={styles.errorMessage}>{formik.errors.email}</p> : null}
+
+                    <AuthInput placeholder='Password' icon={lock} type='password'
+                        name='password'
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                        borderColor={formik.errors.password ? 'red-400' : ''}
+                    />
+                    {formik.errors.password ? <p className={styles.errorMessage}>{formik.errors.password}</p> : null}
+
+                    <AuthInput placeholder='Confirm Password' icon={lock} type='password'
+                        name='confPassword'
+                        onChange={formik.handleChange}
+                        value={formik.values.confPassword}
+                        borderColor={formik.errors.confPassword ? 'red-400' : ''}
+                    />
+                    {formik.errors.confPassword ? <p className={`${styles.errorMessage} ${styles.errorMessageConfPassword}`}>{formik.errors.confPassword}</p> : null}
+                </div>
+
+                <div className={styles.buttonWrapper}>
+                    <PrimaryButton text={loading ? 'Creating...' : 'Create account'} hasIcon={false} width='8/12'
+                        onClick={() => {
+                            setInitialSubmit(true);
+                        }}
+                    />
+                </div>
+            </form>
+        </div>
+    );
+};
+
+export default SignUp;
