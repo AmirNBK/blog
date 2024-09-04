@@ -57,9 +57,9 @@ const PostCard: React.FC<PostCardProps> = ({
                 </footer>
 
                 <div className='flex flex-row justify-between'>
-                    {editable && <p className=' underline text-white mt-6'>
+                    {editable && <Link href={`/edit-story/${id}`} className=' underline text-white mt-6'>
                         Edit
-                    </p>}
+                    </Link>}
 
                     {deletable && <p className=' underline mt-6 text-red-700'>
                         Delete
