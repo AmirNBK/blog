@@ -7,6 +7,7 @@ import styles from './HeroSection.module.css';
 
 const HeroSection = ({ post }: { post: any }) => {
     const articleData = {
+        id : post._id,
         category: "Technology",
         title: post.title,
         author: {

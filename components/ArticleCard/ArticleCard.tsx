@@ -1,8 +1,10 @@
 import React from 'react';
 import styles from './ArticleCard.module.css';
 import Image, { StaticImageData } from 'next/image';
+import Link from 'next/link';
 
 interface ArticleCardProps {
+  id : string;
   category: string;
   title: string;
   author: {
@@ -12,12 +14,12 @@ interface ArticleCardProps {
   publishDate: string;
 }
 
-const ArticleCard: React.FC<ArticleCardProps> = ({ category, title, author, publishDate }) => {
+const ArticleCard: React.FC<ArticleCardProps> = ({ category, title, author, publishDate , id }) => {
   return (
     <article className={styles.container}>
       <header className={styles.header}>
         <span className={styles.badge}>{category}</span>
-        <h2 className={styles.title}>{title}</h2>
+        <Link href={`/post/${id}`} className={styles.title}>{title}</Link>
       </header>
       <div className={styles.metaInfo}>
         <div className={styles.authorInfo}>

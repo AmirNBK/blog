@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './CommentSection.module.css';
 
 const CommentForm: React.FC<{ postId: string | string[] }> = ({ postId }) => {
@@ -8,6 +8,38 @@ const CommentForm: React.FC<{ postId: string | string[] }> = ({ postId }) => {
     const [success, setSuccess] = useState('');
 
 
+    const fetchUserInfo = async () => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            setError('User is not authenticated.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/users/currentUser', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch user info.');
+            }
+
+            const data = await response.json();
+            setAuthor(data.name);
+        } catch (error) {
+            setError('Failed to fetch user info.');
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchUserInfo();
+    }, []);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -16,7 +48,7 @@ const CommentForm: React.FC<{ postId: string | string[] }> = ({ postId }) => {
             return;
         }
 
-        const token = localStorage.getItem('token'); 
+        const token = localStorage.getItem('token');
 
         try {
             const response = await fetch('/api/comments', {
@@ -55,8 +87,8 @@ const CommentForm: React.FC<{ postId: string | string[] }> = ({ postId }) => {
                 <button type="submit" className={styles.postButton}>Post</button>
             </div>
             <div>
-            {error && <p className={styles.error}>{error}</p>}
-            {success && <p className={styles.success}>{success}</p>}
+                {error && <p className={styles.error}>{error}</p>}
+                {success && <p className={styles.success}>{success}</p>}
             </div>
 
         </form>

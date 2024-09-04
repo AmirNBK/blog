@@ -64,3 +64,8 @@
 .publishDate {
     font-weight: 400;
 }
+
+
+.title:hover {
+    text-decoration: underline;
+  }

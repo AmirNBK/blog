@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { connectToDatabase } from '@/lib/mongodb';
+import { ObjectId } from 'mongodb';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'mySuperSecretKey1234567890';
 
@@ -9,7 +10,7 @@ interface DecodedToken extends JwtPayload {
 }
 
 export async function POST(request: Request) {
-    const { content, author, postId } = await request.json();
+    const { content, postId } = await request.json();
 
     try {
         const client = await connectToDatabase();
@@ -33,14 +34,14 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
         }
 
-        if (!content || !author || !postId) {
-            return NextResponse.json({ error: 'Content, author, and postId are required' }, { status: 400 });
+        if (!content || !postId) {
+            return NextResponse.json({ error: 'Content and postId are required' }, { status: 400 });
         }
 
         const comment = {
             content,
-            author,
-            postId,
+            author: decodedToken.userId,
+            postId: new ObjectId(postId), 
             createdAt: new Date(),
             userId: decodedToken.userId 
         };
@@ -51,8 +52,4 @@ export async function POST(request: Request) {
     } catch (error) {
         return NextResponse.json({ error: 'Failed to post comment' }, { status: 500 });
     }
-}
-
-export function GET() {
-    return NextResponse.json({ message: 'Method not allowed' }, { status: 405 });
 }

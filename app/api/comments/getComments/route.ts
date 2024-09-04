@@ -4,26 +4,39 @@ import { ObjectId } from 'mongodb';
 
 export async function GET(request: Request) {
     try {
-        // Parse the URL to get the query parameters
         const url = new URL(request.url);
         const postId = url.searchParams.get('postId');
 
-        // Validate postId
         if (!postId || !ObjectId.isValid(postId)) {
             return NextResponse.json({ error: 'Invalid or missing postId' }, { status: 400 });
         }
 
-        // Connect to the database
         const client = await connectToDatabase();
         const db = client.db('blogCluster');
 
-        // Fetch comments for the specific post
         const comments = await db.collection('comments')
             .find({ postId: new ObjectId(postId) })
-            .sort({ createdAt: -1 }) // Sort by most recent
+            .sort({ createdAt: -1 })
             .toArray();
 
-        return NextResponse.json(comments, { status: 200 });
+        const userIds = comments.map(comment => comment.userId);
+        const uniqueUserIds = [...new Set(userIds)].map(id => new ObjectId(id));
+
+        const users = await db.collection('users')
+            .find({ _id: { $in: uniqueUserIds } })
+            .toArray();
+
+        const userMap = users.reduce((map, user) => {
+            map[user._id.toString()] = user;
+            return map;
+        }, {});
+
+        const commentsWithAuthor = comments.map(comment => ({
+            ...comment,
+            authorName: userMap[comment.userId]?.name || 'Unknown'
+        }));
+
+        return NextResponse.json(commentsWithAuthor, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error: 'Failed to fetch comments' }, { status: 500 });
     }
