@@ -16,17 +16,16 @@ export async function PUT(request: Request) {
         const slug = url.searchParams.get('slug');
 
         // Extract data from the request body
-        const { title, content, publishDate } = await request.json();
+        const { title, content } = await request.json();
 
         // Debugging: Log the received values
         console.log('Slug:', slug);
         console.log('Title:', title);
         console.log('Content:', content);
-        console.log('Publish Date:', publishDate);
 
         // Validate required fields
-        if (!slug || !title || !content || !publishDate) {
-            return NextResponse.json({ error: 'Slug, title, content, and publishDate are required' }, { status: 400 });
+        if (!slug || !title || !content) {
+            return NextResponse.json({ error: 'title and content are required' }, { status: 400 });
         }
 
         const authHeader = request.headers.get('Authorization');
@@ -61,7 +60,7 @@ export async function PUT(request: Request) {
         // Update the post
         await db.collection('posts').updateOne(
             { _id: new ObjectId(slug) },
-            { $set: { title, content, publishDate } }
+            { $set: { title, content } }
         );
 
         return NextResponse.json({ message: 'Post updated successfully!' }, { status: 200 });

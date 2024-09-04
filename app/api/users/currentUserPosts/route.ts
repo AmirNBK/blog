@@ -11,7 +11,6 @@ interface DecodedToken extends JwtPayload {
 
 export async function GET(request: Request) {
     try {
-        // Verify and decode the JWT token
         const authHeader = request.headers.get('Authorization');
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
@@ -26,7 +25,6 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
         }
 
-        // Connect to the database
         const client = await connectToDatabase();
         const db = client.db('blogCluster');
 
@@ -38,10 +36,10 @@ export async function GET(request: Request) {
 
         // Get unique author IDs from posts
         const authorIds = [...new Set(posts.map(post => post.author.toString()))];
-        
+
         // Fetch author details
         const authors = await db.collection('users').find({ _id: { $in: authorIds.map(id => new ObjectId(id)) } }).toArray();
-        
+
         // Create a map of authorId to author name
         const authorMap = authors.reduce((acc, author) => {
             acc[author._id.toString()] = author.name;

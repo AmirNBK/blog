@@ -32,8 +32,12 @@ const StoryForm: React.FC<StoryFormProps> = ({ initialValues, validationSchema, 
                     </div>
                     <CustomEditor setFieldValue={setFieldValue} />
                     <ErrorMessage name="content" component="div" className={styles.contentError} />
-                    <DateTimeInput setFieldValue={setFieldValue} />
-                    <ErrorMessage name="dateTime" component="div" className={styles.error} />
+                    {!isEditing &&
+                        <>
+                            <DateTimeInput setFieldValue={setFieldValue} />
+                            <ErrorMessage name="dateTime" component="div" className={styles.error} />
+                        </>
+                    }
                     <div className={`${styles.buttonContainer}`}>
                         <PrimaryButton text={isEditing ? "Update" : "Post"} hasIcon={false} width="8/12" />
                     </div>

@@ -14,16 +14,12 @@ const validationSchema = Yup.object().shape({
     content: Yup.string()
         .required('Content is required')
         .min(20, 'Content must be at least 20 characters long'),
-    dateTime: Yup.date()
-        .required('Date and time are required')
-        .min(new Date(), 'Date and time cannot be in the past'),
 });
 
 const EditStory: React.FC = () => {
     const [initialValues, setInitialValues] = useState<any>({
         title: '',
         content: '',
-        dateTime: ''
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -46,7 +42,6 @@ const EditStory: React.FC = () => {
                         setInitialValues({
                             title: data.title,
                             content: data.content,
-                            dateTime: new Date(data.publishDate).toISOString(),
                         });
                         setLoading(false);
                     } else {

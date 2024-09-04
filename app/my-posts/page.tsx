@@ -27,7 +27,7 @@ export default function MyPosts() {
     const fetchPosts = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await fetch('/api/singleUserPosts', {
+            const response = await fetch('/api/users/currentUserPosts', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -49,9 +49,6 @@ export default function MyPosts() {
     useEffect(() => {
         fetchPosts();
     }, []);
-
-    console.log(posts);
-    
 
     if (loading) {
         return <div>Loading...</div>;

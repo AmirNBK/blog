@@ -17,7 +17,7 @@ const CommentForm: React.FC<{ postId: string | string[] }> = ({ postId }) => {
         }
 
         try {
-            const response = await fetch('/api/users/currentUser', {
+            const response = await fetch('/api/users/currentUserDetails', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
