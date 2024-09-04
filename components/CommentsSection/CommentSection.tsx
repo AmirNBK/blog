@@ -4,7 +4,7 @@ import CommentForm from './CommentForm';
 import CommentCard from './CommentCard/CommentCard';
 import image from '@/assets/images/image3.png'
 
-const CommentSection = () => {
+const CommentSection = ({postId} : {postId : string | string[]}) => {
     const commentData = {
         avatarSrc: image,
         authorName: "Ralph Edwards",
@@ -14,7 +14,7 @@ const CommentSection = () => {
 
     return (
         <section className={styles.commentSection}>
-            <CommentForm />
+            <CommentForm postId={postId} />
             <div className={styles.commentsLists}>
                 <CommentCard {...commentData} />
                 <CommentCard {...commentData} />

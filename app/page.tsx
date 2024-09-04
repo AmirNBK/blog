@@ -8,7 +8,7 @@ export default async function Home() {
   let data = await fetch('http://localhost:3000/api/posts/getPosts', { cache: 'no-store' })
   let posts = await data.json()
 
-  posts.sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
+  posts.sort((a: { publishDate: string | number | Date; }, b: { publishDate: string | number | Date; }) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
 
 
   return (

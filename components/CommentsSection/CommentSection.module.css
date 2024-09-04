@@ -7,6 +7,7 @@
 
 .commentForm {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: flex-start;
 }
@@ -56,4 +57,23 @@
     flex-direction: column;
     gap: 32px;
     margin: 85px 0px;
+}
+
+
+.error {
+    color: #d9534f; 
+    background-color: #f2dede;
+    border: 1px solid #d9534f; 
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 30px;
+}
+
+.success {
+    color: #5bc0de; 
+    background-color: #d9edf7;
+    border: 1px solid #5bc0de; 
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 30px;
 }

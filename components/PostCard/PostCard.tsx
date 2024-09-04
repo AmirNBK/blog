@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './PostCard.module.css';
 import Image, { StaticImageData } from 'next/image';
+import Link from 'next/link';
 
 interface PostCardProps {
     imageUrl: string | StaticImageData;
@@ -11,7 +12,8 @@ interface PostCardProps {
     authorName: string;
     date: string;
     editable?: boolean,
-    deletable?: boolean
+    deletable?: boolean,
+    id: string
 }
 
 const PostCard: React.FC<PostCardProps> = ({
@@ -23,7 +25,8 @@ const PostCard: React.FC<PostCardProps> = ({
     authorName,
     date,
     editable,
-    deletable
+    deletable,
+    id
 }) => {
 
     const MAX_DESCRIPTION_LENGTH = 35;
@@ -39,7 +42,7 @@ const PostCard: React.FC<PostCardProps> = ({
             <div className={styles.content}>
                 <header className={styles.heading}>
                     <span className={styles.badge}>{category}</span>
-                    <h2 className={styles.title}>{title}</h2>
+                    <Link href={`/post/${id}`} className={styles.title}>{title}</Link>
                     <div
                         className={styles.description}
                         dangerouslySetInnerHTML={{ __html: truncatedDescription }}

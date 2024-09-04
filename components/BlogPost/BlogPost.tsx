@@ -13,7 +13,21 @@ interface BlogPostProps {
     content: string;
 }
 
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+};
+
+
 const BlogPost: React.FC<BlogPostProps> = ({ category, title, author, date, image, content }) => {
+
+    const formattedDate = formatDate(date);
+
+
     return (
         <article className={styles.blogContainer}>
             <header className={styles.blogContent}>
@@ -26,7 +40,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ category, title, author, date, imag
                         <img src={author.avatar} alt={`${author.name}'s avatar`} className={styles.authorAvatar} />
                         <span className={styles.authorName}>{author.name}</span>
                     </div>
-                    <time className={styles.publishDate} dateTime={date}>{date}</time>
+                    <time className={styles.publishDate} dateTime={date}>{formattedDate}</time>
                 </div>
             </header>
             <img src={image} alt="Blog post main image" className={styles.blogImage} />

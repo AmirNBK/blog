@@ -50,6 +50,7 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts }) => {
                             month: 'long',
                             day: 'numeric',
                         })}
+                        id={item._id}
                     />
                 ))}
             </div>
