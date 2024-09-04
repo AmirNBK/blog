@@ -1,15 +1,16 @@
 import React from 'react';
 import styles from './BlogPost.module.css';
+import Image, { StaticImageData } from 'next/image';
 
 interface BlogPostProps {
     category: string;
     title: string;
     author: {
         name: string;
-        avatar: string;
+        avatar: string | StaticImageData;
     };
     date: string;
-    image: string;
+    image: string | StaticImageData;
     content: string;
 }
 
@@ -37,13 +38,13 @@ const BlogPost: React.FC<BlogPostProps> = ({ category, title, author, date, imag
                 </div>
                 <div className={styles.blogMeta}>
                     <div className={styles.authorInfo}>
-                        <img src={author.avatar} alt={`${author.name}'s avatar`} className={styles.authorAvatar} />
+                        <Image src={author.avatar} alt={`${author.name}'s avatar`} className={styles.authorAvatar} />
                         <span className={styles.authorName}>{author.name}</span>
                     </div>
                     <time className={styles.publishDate} dateTime={date}>{formattedDate}</time>
                 </div>
             </header>
-            <img src={image} alt="Blog post main image" className={styles.blogImage} />
+            <Image src={image} alt="Blog post main image" className={styles.blogImage} />
             <div className={styles.blogContent} dangerouslySetInnerHTML={{ __html: content }} />
         </article>
     );

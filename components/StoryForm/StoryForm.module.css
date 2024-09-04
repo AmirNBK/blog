@@ -1,0 +1,47 @@
+  .button {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  
+  .form {
+    width: 100%;
+    margin-top: 60px;
+  }
+  
+  .textCenter {
+    text-align: center;
+  }
+  
+  .input {
+    padding: 16px;
+    background: transparent;
+    border-bottom: 1px solid white;
+    width: 60%;
+    border-color: white;
+    color: white;
+    outline: none;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 8px;
+    text-align: center;
+  }
+  
+  .contentError {
+    color: red;
+    text-align: center;
+    margin-bottom: 24px; 
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+  }
+  
