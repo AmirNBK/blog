@@ -1,52 +1,101 @@
 .main {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 48px;
-    background-color: #181A2A;
-  }
-  
-  .allPostsContainer {
-    width: 75%;
-    margin-top: 55px;
-  }
-  
-  .heading {
-    color: white;
-    text-align: left;
-    font-size: 24px;
-    font-weight: 500;
-  }
-  
-  .posts {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
-  }
-  
-.sortOptions {
-  margin: 35px 0px;
   display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  padding-top: 48px;
+  background-color: #181A2A;
 }
 
-.sortOptions label {
-  margin-right: 10px;
+.allPostsContainer {
+  width: 75%;
+  margin-top: 55px;
 }
 
-.sortOptions select {
-  padding: 5px;
-  border-radius: 5px;
+.heading {
+  color: white;
+  text-align: left;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
 }
 
-.sortLabel {
-  color: #fff;
+.posts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
 }
+
 
 .title {
   font-size: 55px;
   color: #fff;
   text-align: center;
+}
+
+.sortOptions {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f4f4f4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sortLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-right: 10px;
+}
+
+.sortOptions select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.sortOptions select:focus {
+  border-color: #0070f3;
+  outline: none;
+}
+
+.dateFilter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f4f4f4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dateLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-right: 10px;
+}
+
+.dateFilter input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.dateFilter input:focus {
+  border-color: #0070f3;
+  outline: none;
 }
