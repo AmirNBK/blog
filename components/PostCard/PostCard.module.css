@@ -91,6 +91,10 @@
     margin: auto 0;
   }
   
+  .authorName:hover {
+    text-decoration: underline;
+  }
+  
   .date {
     font-weight: 400;
   }

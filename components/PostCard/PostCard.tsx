@@ -13,7 +13,8 @@ interface PostCardProps {
     date: string;
     editable?: boolean,
     deletable?: boolean,
-    id: string
+    id: string,
+    authorId : string
 }
 
 const PostCard: React.FC<PostCardProps> = ({
@@ -26,7 +27,8 @@ const PostCard: React.FC<PostCardProps> = ({
     date,
     editable,
     deletable,
-    id
+    id,
+    authorId
 }) => {
 
     const MAX_DESCRIPTION_LENGTH = 35;
@@ -76,8 +78,12 @@ const PostCard: React.FC<PostCardProps> = ({
                 </header>
                 <footer className={styles.shortInfo}>
                     <div className={styles.author}>
+                        <Link href={`/user/${authorId}`}>
                         <Image src={authorImageUrl} alt={`${authorName}'s profile`} className={styles.authorImage} />
+                        </Link>
+                        <Link href={`/user/${authorId}`}>
                         <span className={styles.authorName}>{authorName}</span>
+                        </Link>
                     </div>
                     <time className={styles.date}>{date}</time>
                 </footer>

@@ -30,6 +30,7 @@ const LatestPosts = ({ posts }: { posts: Post[] }) => {
                             day: 'numeric',
                         })}
                         id={item._id}
+                        authorId={item.author._id}
                     />
                 ))}
             </div>
