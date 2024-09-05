@@ -6,7 +6,8 @@ import { connectToDatabase } from '@/lib/mongodb';
 const JWT_SECRET = process.env.JWT_SECRET || 'mySuperSecretKey1234567890';
 
 export async function POST(request: Request) {
-    const { name, email, password } = await request.json();
+    const { name, email, password, isAdmin = false } = await request.json(); // Default isAdmin to false
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     try {
@@ -16,6 +17,7 @@ export async function POST(request: Request) {
             name,
             email,
             password: hashedPassword,
+            isAdmin,
         });
 
         const token = jwt.sign({ userId: result.insertedId }, JWT_SECRET, { expiresIn: '1h' });

@@ -35,10 +35,36 @@ const PostCard: React.FC<PostCardProps> = ({
             ? `${description.slice(0, MAX_DESCRIPTION_LENGTH)}...`
             : description;
 
+            const handleDelete = async () => {
+                if (confirm('Are you sure you want to delete this post?')) {
+                    try {
+                        const response = await fetch(`/api/posts/deletePosts?id=${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                            },
+                        });
+            
+                        const data = await response.json();
+                        if (response.ok) {
+                            alert(data.message);
+                            window.location.reload();
+                        } else {
+                            alert(data.error);
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Failed to delete post');
+                    }
+                }
+            };
+            
+
 
     return (
         <article className={styles.postCard}>
-            <Image src={imageUrl} alt="" className={styles.postImage} />
+            <Image src={imageUrl} alt="view image" className={styles.postImage} />
             <div className={styles.content}>
                 <header className={styles.heading}>
                     <span className={styles.badge}>{category}</span>
@@ -56,15 +82,14 @@ const PostCard: React.FC<PostCardProps> = ({
                     <time className={styles.date}>{date}</time>
                 </footer>
 
-                <div className='flex flex-row justify-between'>
-                    {editable && <Link href={`/edit-story/${id}`} className=' underline text-white mt-6'>
+                <div className={styles.postActions}>
+                    {editable && <Link href={`/edit-story/${id}`} className={styles.editButton}>
                         Edit
                     </Link>}
 
-                    {deletable && <p className=' underline mt-6 text-red-700'>
+                    {deletable && <p className={styles.deleteButton} onClick={handleDelete}>
                         Delete
                     </p>}
-
                 </div>
             </div>
         </article>

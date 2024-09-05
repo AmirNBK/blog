@@ -6,73 +6,57 @@ import PostCard from '@/components/PostCard/PostCard';
 import styles from './AdminPanel.module.css';
 import viewImage from '@/assets/images/View1.png';
 import authorImage from '@/assets/images/Image1.png';
-import { StaticImageData } from 'next/image';
 
-interface Post {
-    imageUrl: string | StaticImageData;
-    category: string;
-    title: string;
-    description: string;
-    authorImageUrl: string | StaticImageData;
-    authorName: string;
-    editable: boolean
-    deletable: boolean
-    date: string;
+
+interface Author {
+    _id: string;
+    name: string;
+    email: string;
+    password: string;
 }
 
-const postsData: Post[] = [
-    {
-        imageUrl: viewImage,
-        category: "Technology",
-        title: "The Impact of Technology",
-        description: "The Impact of Technology on the Workplace: How Technology is Changing...",
-        authorImageUrl: authorImage,
-        authorName: "Tracey Wilson",
-        date: "August 20, 2022",
-        editable: true,
-        deletable: true
-    },
-    {
-        imageUrl: viewImage,
-        category: "Technology",
-        title: "AI in Healthcare",
-        description: "How AI is Revolutionizing the Healthcare Industry...",
-        authorImageUrl: authorImage,
-        authorName: "John Doe",
-        date: "January 15, 2023",
-        editable: true,
-        deletable: true
-    },
-    {
-        imageUrl: viewImage,
-        category: "Technology",
-        title: "Blockchain and Finance",
-        description: "The Future of Finance: How Blockchain is Changing the Game...",
-        authorImageUrl: authorImage,
-        authorName: "Jane Smith",
-        date: "March 30, 2023",
-        editable: true,
-        deletable: true
-    }
-];
+interface Post {
+    _id: string;
+    title: string;
+    summary?: string;
+    content: string;
+    publishDate: string;
+    author: Author;
+    comments: Comment[];
+}
 
+interface Comment {
+    // Add properties if the comments array is supposed to hold data
+}
+
+interface Post {
+    posts: Post[];
+}
 
 const AdminPanel: React.FC = () => {
-    const [posts, setPosts] = useState<Post[]>(postsData);
+    const [posts, setPosts] = useState<Post[]>([]);
     const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
+    const [loading, setLoading] = useState(true);
+
+    const fetchPosts = async () => {
+        try {
+            const res = await fetch('http://localhost:3000/api/posts/getPosts');
+            const data = await res.json();
+            setPosts(data);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
     useEffect(() => {
-        sortPosts(sortOrder);
-    }, [sortOrder]);
+        fetchPosts();
+    }, []);
 
-    const sortPosts = (order: 'newest' | 'oldest') => {
-        const sortedPosts = [...posts].sort((a, b) => {
-            const dateA = new Date(a.date);
-            const dateB = new Date(b.date);
-            return order === 'newest' ? dateB.getTime() - dateA.getTime() : dateA.getTime() - dateB.getTime();
-        });
-        setPosts(sortedPosts);
-    };
+
+    if (loading) return <div>Loading...</div>;
 
     return (
         <main className={styles.main}>
@@ -88,23 +72,32 @@ const AdminPanel: React.FC = () => {
 
                 <div className={styles.sortOptions}>
                     <label htmlFor="sortOrder" className={styles.sortLabel}>Sort by : </label>
-                    <select id="sortOrder" value={sortOrder} onChange={(e) => setSortOrder(e.target.value as 'newest' | 'oldest')}>
+                    <select
+                        id="sortOrder"
+                        value={sortOrder}
+                        onChange={(e) => setSortOrder(e.target.value as 'newest' | 'oldest')}
+                    >
                         <option value="newest">Newest</option>
                         <option value="oldest">Oldest</option>
                     </select>
                 </div>
 
                 <div className={styles.posts}>
-                    {posts.map((post, index) => (
+                    {posts.map((item) => (
                         <PostCard
-                            key={index}
-                            imageUrl={post.imageUrl}
-                            category={post.category}
-                            title={post.title}
-                            description={post.description}
-                            authorImageUrl={post.authorImageUrl}
-                            authorName={post.authorName}
-                            date={post.date}
+                            key={item._id}
+                            imageUrl={viewImage}
+                            category="Technology"
+                            title={item.title}
+                            description={item.content}
+                            authorImageUrl={authorImage}
+                            authorName={item.author.name}
+                            date={new Date(item.publishDate).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                            })}
+                            id={item._id}
                             editable
                             deletable
                         />

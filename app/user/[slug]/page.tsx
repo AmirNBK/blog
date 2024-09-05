@@ -59,7 +59,7 @@ export default async function UserProfile({ params }: { params: { id: string } }
                         avatarSrc={image}
                         description='Meet Jonathan Doe, a passionate writer and blogger with a love for technology and travel. Jonathan holds a degree in Computer Science and has spent years working in the tech industry, gaining a deep understanding of the impact technology has on our lives.'
                     />
-                    {/* <UserPosts posts={userData.posts || []} />  */}
+                    <UserPosts posts={userData.posts || []} /> 
                 </div>
                 <Footer />
             </main>

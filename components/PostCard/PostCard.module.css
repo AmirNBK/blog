@@ -94,3 +94,23 @@
   .date {
     font-weight: 400;
   }
+
+.postActions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 16px; 
+}
+
+.editButton {
+  text-decoration: underline;
+  color: #ffffff;
+  margin-top: 24px;
+}
+
+.deleteButton {
+  text-decoration: underline;
+  color: #e53e3e;
+  margin-top: 24px; 
+  cursor: pointer;
+}
