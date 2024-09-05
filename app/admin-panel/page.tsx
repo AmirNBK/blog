@@ -6,34 +6,21 @@ import PostCard from '@/components/PostCard/PostCard';
 import styles from './AdminPanel.module.css';
 import viewImage from '@/assets/images/View1.png';
 import authorImage from '@/assets/images/Image1.png';
+import { Post } from '@/types/types';
+import { useAppContext } from '@/context/AppContext';
+import Link from 'next/link';
 
-interface Author {
-    _id: string;
-    name: string;
-    email: string;
-    password: string;
-}
-
-interface Post {
-    _id: string;
-    title: string;
-    summary?: string;
-    content: string;
-    publishDate: string;
-    author: Author;
-    comments: Comment[];
-}
-
-interface Comment {
-    // Add properties if the comments array is supposed to hold data
-}
 
 const AdminPanel: React.FC = () => {
+    const { isAdmin } = useAppContext();
     const [posts, setPosts] = useState<Post[]>([]);
     const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
     const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
     const [startDate, setStartDate] = useState<string>('');
     const [loading, setLoading] = useState(true);
+
+    console.log(isAdmin);
+    
 
     const fetchPosts = async () => {
         try {
@@ -81,55 +68,62 @@ const AdminPanel: React.FC = () => {
     return (
         <main className={styles.main}>
             <NavBar />
-            <div className={styles.allPostsContainer}>
-                <h1 className={styles.title}>Admin panel</h1>
-                <p className={styles.heading}>All posts</p>
+            {
+                isAdmin ?
+                    <div className={styles.allPostsContainer}>
+                        <h1 className={styles.title}>Admin panel</h1>
+                        <p className={styles.heading}>All posts</p>
 
-                <div className={styles.sortOptions}>
-                    <label htmlFor="sortOrder" className={styles.sortLabel}>Sort by:</label>
-                    <select
-                        id="sortOrder"
-                        value={sortOrder}
-                        onChange={handleSortChange}
-                    >
-                        <option value="newest">Newest</option>
-                        <option value="oldest">Oldest</option>
-                    </select>
-                </div>
+                        <div className={styles.sortOptions}>
+                            <label htmlFor="sortOrder" className={styles.sortLabel}>Sort by:</label>
+                            <select
+                                id="sortOrder"
+                                value={sortOrder}
+                                onChange={handleSortChange}
+                            >
+                                <option value="newest">Newest</option>
+                                <option value="oldest">Oldest</option>
+                            </select>
+                        </div>
 
-                <div className={styles.dateFilter}>
-                    <label htmlFor="startDate" className={styles.dateLabel}>Show posts from:</label>
-                    <input
-                        type="date"
-                        id="startDate"
-                        value={startDate}
-                        onChange={handleDateChange}
-                    />
-                </div>
+                        <div className={styles.dateFilter}>
+                            <label htmlFor="startDate" className={styles.dateLabel}>Show posts from:</label>
+                            <input
+                                type="date"
+                                id="startDate"
+                                value={startDate}
+                                onChange={handleDateChange}
+                            />
+                        </div>
 
-                <div className={styles.posts}>
-                    {filteredPosts.map((item) => (
-                        <PostCard
-                            key={item._id}
-                            imageUrl={viewImage}
-                            category="Technology"
-                            title={item.title}
-                            description={item.content}
-                            authorImageUrl={authorImage}
-                            authorName={item.author.name}
-                            date={new Date(item.publishDate).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric',
-                            })}
-                            id={item._id}
-                            authorId={item.author._id}
-                            editable
-                            deletable
-                        />
-                    ))}
-                </div>
-            </div>
+                        <div className={styles.posts}>
+                            {filteredPosts.map((item) => (
+                                <PostCard
+                                    key={item._id}
+                                    imageUrl={viewImage}
+                                    category="Technology"
+                                    title={item.title}
+                                    description={item.content}
+                                    authorImageUrl={authorImage}
+                                    authorName={item.author.name}
+                                    date={new Date(item.publishDate).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric',
+                                    })}
+                                    id={item._id}
+                                    authorId={item.author._id}
+                                    editable
+                                    deletable
+                                />
+                            ))}
+                        </div>
+                    </div>
+                    :
+                    <Link href={'/sign-in'} className='text-white text-2xl hover:underline'>
+                        User is not authenticated as admin, please login as admin.
+                    </Link>
+            }
             <Footer />
         </main>
     );

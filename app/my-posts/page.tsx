@@ -91,7 +91,7 @@ export default function MyPosts() {
                 :
 
                 <Link href={'/sign-in'} className='text-white text-2xl hover:underline'>
-                User is not authenticated, please login or make an account to comment.
+                User is not authenticated, please login or make an account.
                 </Link>
         }
 
