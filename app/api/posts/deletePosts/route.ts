@@ -35,15 +35,16 @@ export async function DELETE(request: Request) {
         const client = await connectToDatabase();
         const db = client.db('blogCluster');
 
+        // Check if the current user is an admin
+        const user = await db.collection('users').findOne({ _id: new ObjectId(decodedToken.userId) });
+        if (!user || !user.isAdmin) {
+            return NextResponse.json({ error: 'Not authorized to delete posts' }, { status: 403 });
+        }
+
         // Check if the post exists
         const post = await db.collection('posts').findOne({ _id: new ObjectId(id) });
         if (!post) {
             return NextResponse.json({ error: 'Post not found' }, { status: 404 });
-        }
-
-        // Check if the current user is the author of the post
-        if (post.author.toString() !== decodedToken.userId) {
-            return NextResponse.json({ error: 'Not authorized to delete this post' }, { status: 403 });
         }
 
         // Delete the post
