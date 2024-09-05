@@ -21,22 +21,21 @@ interface Post {
     comments: Comment[];
 }
 
-interface Comment {
-    // Add properties if the comments array is supposed to hold data
-}
+interface Comment { }
 
 interface LatestPostsProps {
     posts: Post[];
 }
 
 const LatestPosts: React.FC<LatestPostsProps> = ({ posts }) => {
+    const activePosts = posts.filter((post) => new Date(post.publishDate) <= new Date());
 
     return (
         <div className={styles.latestPostsContainer}>
             <h1 className={styles.heading}>Latest Posts</h1>
 
             <div className={styles.posts}>
-                {posts.map((item) => (
+                {activePosts.map((item) => (
                     <PostCard
                         key={item._id}
                         imageUrl={viewImage}

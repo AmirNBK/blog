@@ -7,54 +7,12 @@
     justify-content: space-between;
 }
 
-.menuContainer {
-    display: flex;
-    min-width: 240px;
-    align-items: center;
-    gap: 21px;
-    justify-content: start;
-    flex-wrap: wrap;
-}
+  .profileAvatar {
+    width: 45px;
+    height: 45px;
+  }
 
-@media (max-width: 991px) {
-    .menuContainer {
-        max-width: 100%;
-    }
-}
 
-.menu {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    color: #fff;
-    justify-content: center;
-    font: 16px Work Sans, sans-serif;
-}
-
-.menuItem {
+  .logo {
     cursor: pointer;
-}
-
-.searchBarContainer {
-    position: relative;
   }
-  
-  .searchInput {
-    background-color: #242535;
-    border-radius: 6px;
-    padding: 12px; 
-    outline: none;
-    color: white;
-  }
-  
-  .searchInput::placeholder {
-    color: #A1A1AA;
-  }
-  
-  .searchIcon {
-    position: absolute;
-    right: 16px; 
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  

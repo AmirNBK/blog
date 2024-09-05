@@ -40,7 +40,7 @@ const AdminPanel: React.FC = () => {
             const res = await fetch('http://localhost:3000/api/posts/getPosts');
             const data = await res.json();
             setPosts(data);
-            setFilteredPosts(data); // Initially show all posts
+            setFilteredPosts(data);
         } catch (error) {
             console.error('Error fetching posts:', error);
         } finally {

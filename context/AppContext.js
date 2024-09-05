@@ -1,5 +1,5 @@
 'use client';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const AppContext = createContext();
 
@@ -9,6 +9,14 @@ export const useAppContext = () => {
 
 export const AppProvider = ({ children }) => {
     const [isSignUp, setIsSignUp] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token'); 
+        if (token) {
+            setIsLoggedIn(true);
+        }
+    }, []);
 
     const toggleSignUpLogin = () => {
         setIsSignUp((prev) => !prev);
@@ -17,6 +25,8 @@ export const AppProvider = ({ children }) => {
     const value = {
         isSignUp,
         toggleSignUpLogin,
+        isLoggedIn,
+        setIsLoggedIn
     };
 
     return (
