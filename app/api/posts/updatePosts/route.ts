@@ -18,7 +18,6 @@ export async function PUT(request: Request) {
         // Extract data from the request body
         const { title, content } = await request.json();
 
-
         // Validate required fields
         if (!slug || !title || !content) {
             return NextResponse.json({ error: 'title and content are required' }, { status: 400 });
@@ -48,8 +47,9 @@ export async function PUT(request: Request) {
             return NextResponse.json({ error: 'Post not found' }, { status: 404 });
         }
 
-        // Check if the current user is the author of the post
-        if (post.author.toString() !== decodedToken.userId) {
+        // Check if the current user is an admin or the author of the post
+        const user = await db.collection('users').findOne({ _id: new ObjectId(decodedToken.userId) });
+        if (!user || (!user.isAdmin && post.author.toString() !== decodedToken.userId)) {
             return NextResponse.json({ error: 'Not authorized to update this post' }, { status: 403 });
         }
 
