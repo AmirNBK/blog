@@ -10,6 +10,8 @@ export const useAppContext = () => {
 export const AppProvider = ({ children }) => {
     const [isSignUp, setIsSignUp] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [fetchComments, setFetchComments] = useState(false);
+
 
     useEffect(() => {
         const token = localStorage.getItem('token'); 
@@ -26,7 +28,9 @@ export const AppProvider = ({ children }) => {
         isSignUp,
         toggleSignUpLogin,
         isLoggedIn,
-        setIsLoggedIn
+        setIsLoggedIn,
+        fetchComments,
+        setFetchComments
     };
 
     return (

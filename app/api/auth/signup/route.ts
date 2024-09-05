@@ -20,7 +20,7 @@ export async function POST(request: Request) {
             isAdmin,
         });
 
-        const token = jwt.sign({ userId: result.insertedId }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: result.insertedId }, JWT_SECRET, { expiresIn: '4h' });
 
         return NextResponse.json({ message: 'User created successfully!', token });
     } catch (error) {

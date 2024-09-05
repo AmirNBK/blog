@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CommentSection.module.css';
+import { useAppContext } from '@/context/AppContext';
+
 
 const CommentForm: React.FC<{ postId: string | string[] }> = ({ postId }) => {
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const { setFetchComments } = useAppContext();
 
 
     const fetchUserInfo = async () => {
@@ -64,7 +67,7 @@ const CommentForm: React.FC<{ postId: string | string[] }> = ({ postId }) => {
                 throw new Error('Failed to post comment');
             }
 
-            const result = await response.json();
+            setFetchComments((prev: boolean) => !prev);
             setSuccess('Comment posted successfully!');
             setContent('');
             setAuthor('');

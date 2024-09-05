@@ -1,3 +1,4 @@
+import { StaticImageData } from "next/image";
 
 export interface Author {
     _id: string;
@@ -16,6 +17,22 @@ export interface Post {
     comments: Comment[];
 }
 
-export interface Comment { 
-    
+export interface Comment {
+    _id: string;
+    content: string;
+    author: string;
+    createdAt: string;
+    authorName: string
+}
+
+export interface BlogPostProps {
+    category: string;
+    title: string;
+    author: {
+        name: string;
+        avatar: string | StaticImageData;
+    };
+    date: string;
+    image: string | StaticImageData;
+    content: string;
 }

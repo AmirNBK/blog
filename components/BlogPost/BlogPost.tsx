@@ -1,33 +1,12 @@
 import React from 'react';
 import styles from './BlogPost.module.css';
-import Image, { StaticImageData } from 'next/image';
-
-interface BlogPostProps {
-    category: string;
-    title: string;
-    author: {
-        name: string;
-        avatar: string | StaticImageData;
-    };
-    date: string;
-    image: string | StaticImageData;
-    content: string;
-}
-
-const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    });
-};
-
+import Image from 'next/image';
+import { formatDate } from '@/commonFuncs/functions';
+import { BlogPostProps } from '@/types/types';
 
 const BlogPost: React.FC<BlogPostProps> = ({ category, title, author, date, image, content }) => {
 
     const formattedDate = formatDate(date);
-
 
     return (
         <article className={styles.blogContainer}>
