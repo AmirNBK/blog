@@ -34,22 +34,23 @@ const UserPosts: React.FC<UserPostsProps> = ({ posts }) => {
     return (
         <div className={styles.posts}>
             {posts.map((item) => (
-                    <PostCard
-                        key={item._id}
-                        imageUrl={viewImage}
-                        category="Technology"
-                        title={item.title}
-                        description={item.content}
-                        authorImageUrl={authorImage}
-                        authorName={item.author.name}
-                        date={new Date(item.publishDate).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                        })}
-                        id={item._id}
-                    />
-                ))}
+                <PostCard
+                    key={item._id}
+                    imageUrl={viewImage}
+                    category="Technology"
+                    title={item.title}
+                    description={item.content}
+                    authorImageUrl={authorImage}
+                    authorName={item.author.name}
+                    date={new Date(item.publishDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                    })}
+                    authorId={item.author._id}
+                    id={item._id}
+                />
+            ))}
         </div>
     );
 };

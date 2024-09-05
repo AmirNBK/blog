@@ -7,10 +7,11 @@ import PostCard from '@/components/PostCard/PostCard';
 import viewImage from '@/assets/images/View1.png'
 import authorImage from '@/assets/images/Image1.png'
 import Link from 'next/link';
+import { useAppContext } from '@/context/AppContext';
 import { Post } from '@/types/types';
 
 export default function MyPosts() {
-
+    const { isLoggedIn } = useAppContext();
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -52,36 +53,48 @@ export default function MyPosts() {
         <main className={styles.main}>
             <NavBar />
 
-            <Link href={'/new-story'} className={styles.publishButton}>
-                Publish Post
-            </Link>
+            {isLoggedIn ?
+                <>
+                    <Link href={'/new-story'} className={styles.publishButton}>
+                        Publish Post
+                    </Link>
 
-            <div className={styles.latestPostsContainer}>
-                <h1 className={styles.heading}>
-                    My Posts
-                </h1>
+                    <div className={styles.latestPostsContainer}>
+                        <h1 className={styles.heading}>
+                            My Posts
+                        </h1>
 
-                <div className={styles.posts}>
-                    {posts.map((item) => (
-                        <PostCard
-                            key={item._id}
-                            imageUrl={viewImage}
-                            category="Technology"
-                            title={item.title}
-                            description={item.content}
-                            authorImageUrl={authorImage}
-                            authorName={item.author.name}
-                            date={new Date(item.publishDate).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric',
-                            })}
-                            id={item._id}
-                            editable
-                        />
-                    ))}
-                </div>
-            </div>
+                        <div className={styles.posts}>
+                            {posts.map((item) => (
+                                <PostCard
+                                    key={item._id}
+                                    imageUrl={viewImage}
+                                    category="Technology"
+                                    title={item.title}
+                                    description={item.content}
+                                    authorImageUrl={authorImage}
+                                    authorName={item.author.name}
+                                    date={new Date(item.publishDate).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric',
+                                    })}
+                                    id={item._id}
+                                    authorId={item.author._id}
+                                    editable
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </>
+
+                :
+
+                <Link href={'/sign-in'} className='text-white text-2xl hover:underline'>
+                User is not authenticated, please login or make an account to comment.
+                </Link>
+        }
+
             <Footer />
         </main>
     );

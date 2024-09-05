@@ -123,6 +123,7 @@ const AdminPanel: React.FC = () => {
                                 day: 'numeric',
                             })}
                             id={item._id}
+                            authorId={item.author._id}
                             editable
                             deletable
                         />

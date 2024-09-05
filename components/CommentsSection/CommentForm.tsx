@@ -15,7 +15,7 @@ const CommentForm: React.FC<{ postId: string | string[] }> = ({ postId }) => {
         const token = localStorage.getItem('token');
 
         if (!token) {
-            setError('User is not authenticated.');
+            setError('User is not authenticated, please login or make an account to comment.');
             return;
         }
 
