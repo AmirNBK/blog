@@ -5,7 +5,7 @@ import UserDetailCard from '@/components/UserDetailCard/UserDetailCard';
 import image from '@/assets/images/Image1.png';
 import UserPosts from '@/components/UserPosts/UserPosts';
 
-export const revalidate = 60; 
+export const revalidate = 5 * 60; // 5 minutes
 
 export const dynamicParams = true;
 
@@ -27,7 +27,7 @@ export async function generateStaticParams() {
     }
 }
 
-export default async function UserProfile({ params }: { params: { id: string } }) {
+export default async function UserProfile({ params }: { params: { slug: string } }) {
 
     try {
         if (!params.slug) {
@@ -46,8 +46,6 @@ export default async function UserProfile({ params }: { params: { id: string } }
             return <div>User not found</div>;
         }
 
-        console.log(userData);
-        
 
         return (
             <main className={styles.main}>
