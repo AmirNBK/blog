@@ -52,9 +52,6 @@ export async function GET(request: Request) {
             authorName: authorMap[post.author.toString()] || 'Unknown'
         }));
 
-        // Debugging: Log userId and the number of posts found
-        console.log(`UserID: ${userId}`);
-        console.log(`Posts Found: ${postsWithAuthors.length}`);
 
         return NextResponse.json(postsWithAuthors, { status: 200 });
     } catch (error) {

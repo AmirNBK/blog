@@ -18,10 +18,6 @@ export async function PUT(request: Request) {
         // Extract data from the request body
         const { title, content } = await request.json();
 
-        // Debugging: Log the received values
-        console.log('Slug:', slug);
-        console.log('Title:', title);
-        console.log('Content:', content);
 
         // Validate required fields
         if (!slug || !title || !content) {

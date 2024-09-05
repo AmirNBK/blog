@@ -19,9 +19,6 @@ const AdminPanel: React.FC = () => {
     const [startDate, setStartDate] = useState<string>('');
     const [loading, setLoading] = useState(true);
 
-    console.log(isAdmin);
-    
-
     const fetchPosts = async () => {
         try {
             const res = await fetch('http://localhost:3000/api/posts/getPosts');
