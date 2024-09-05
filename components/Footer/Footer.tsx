@@ -3,7 +3,7 @@ import styles from './Footer.module.css';
 import FooterNav from './FooterNav';
 import SocialLinks from './SocialLinks';
 
-const Footer: React.FC = () => {
+const Footer = () => {
     return (
         <footer className={styles.footer}>
                     <div className={styles.footerContent}>

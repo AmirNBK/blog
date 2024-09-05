@@ -8,6 +8,7 @@ export default async function Home() {
   let data = await fetch('http://localhost:3000/api/posts/getPosts', { cache: 'no-store' })
   let posts = await data.json()
 
+  // Sorting posts in descending order based on their publishDate.
   posts.sort((a: { publishDate: string | number | Date; }, b: { publishDate: string | number | Date; }) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
 
 

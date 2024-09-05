@@ -3,31 +3,11 @@ import styles from './LatestPosts.module.css';
 import PostCard from '../PostCard/PostCard';
 import viewImage from '@/assets/images/View1.png';
 import authorImage from '@/assets/images/Image1.png';
+import { Post } from '@/types/types';
 
-interface Author {
-    _id: string;
-    name: string;
-    email: string;
-    password: string;
-}
+const LatestPosts = ({ posts }: { posts: Post[] }) => {
 
-interface Post {
-    _id: string;
-    title: string;
-    summary?: string;
-    content: string;
-    publishDate: string;
-    author: Author;
-    comments: Comment[];
-}
-
-interface Comment { }
-
-interface LatestPostsProps {
-    posts: Post[];
-}
-
-const LatestPosts: React.FC<LatestPostsProps> = ({ posts }) => {
+    // Filters the posts array to include only posts that are published.
     const activePosts = posts.filter((post) => new Date(post.publishDate) <= new Date());
 
     return (
